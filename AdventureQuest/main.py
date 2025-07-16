@@ -249,6 +249,7 @@ def playGame():
             item_dropped = player_command[2:].strip()
             if item_dropped in character['inventory']:
                 items_at_location[(x, y)].append(item_dropped)
+                character['inventory'].remove(item_dropped)
                 print(f"You dropped {item_dropped}.")
         
         elif player_command == 'c':
@@ -257,6 +258,9 @@ def playGame():
             for item in items_at_current_location:
                 print(f"- {item}")
            
+        elif player_command == 'q':
+            save_game(character, items_at_location, "players.txt")
+
         else:
             print("Invalid command. Please try again.")
         
