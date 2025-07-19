@@ -49,51 +49,12 @@ game_map: dict = {
      (4,4): "Haunted Forest",
 }
 
-
-def save_game(character, location_items, filename="players.txt"):
-    with open(filename, "a") as save_file:
-        save_file.write("Character\n")
-        save_file.write(f"{character['name']},{character['health']},{character['strength']},"
-                   f"{character['level']},{character['gold']},{character['magic']},"
-                   f"{character['location'][0]},{character['location'][1]}\n")
-        save_file.write("Inventory," + ",".join(character['inventory']) + "\n")
-        save_file.write("ItemsAtLocation\n")
-        for loc, items in location_items.items():
-            line = f"{loc[0]},{loc[1]}"
-            if items:
-                line += "," + ",".join(items)
-            save_file.write(line + "\n")
-
-        save_file.write("---\n")
-
-def load_game(character, filename="players.txt"):
-    pass
-
 def clearScreen():
     if os.name == 'nt':
         os.system('cls')
     else:
         os.system('clear')
 
-def createCharacter():
-    print("Create your Character!\n")
-    character_name: str = input("Enter your character's name: ")
-    character_health: int = 100
-    character_strength: int = 10
-    global character
-    character = {
-            'name': character_name,
-            'health': character_health,
-            'strength': character_strength,
-            'level': 1,
-            'gold': 0,
-            'inventory': ['Food', 'Water'],
-            'magic': 0,
-            'location': (0,0)
-        }
-    print(f"Character created! Name: {character['name']}, Health: {character['health']}, Strength: {character['strength']}\n")
-    clearScreen()
-    playGame()
 
 def playGame():
     isPlaying: bool = True
