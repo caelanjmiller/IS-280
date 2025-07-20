@@ -1,57 +1,9 @@
 import os
 
-from utilities.character import *
-from npcs, quests, items, save_load
+from utilities import character as char
+from utilities import locations, npcs, quests, items, save_load
 
-<<<<<<< HEAD
-=======
-items_at_location = {
-    (0, 1): ["Health Potion", "Magic Scroll"],
-    (0, 3): ["Shield", "Ancient Scroll"],
-    (0, 4): ["Ancient Relic", "Enchanted Sword", "Health Potion"],
-    (1, 0): ["Ancient Scroll", "Magic Scroll", "Shield", "Old Sword"],
-    (1, 1): ["Ancient Relic", "Enchanted Sword"],
-    (1, 3): ["Water", "Water", "Water"],
-    (2, 0): ["Water", "Water", "Water"],
-    (2, 2): ["Enchanted Amulet", "Emulated Sword"],
-    (2, 4): ["Old Sword", "Magic Scroll", "Ancient Relic", "Health Potion"],
-    (3, 0): ["Water", "Food", "Enchanted Amulet"],
-    (3, 2): ["Old Sword", "Food", "Old Sword"],
-    (3, 4): ["Ancient Relic", "Shield", "Old Sword"],
-    (4, 0): ["Food", "Magic Scroll"],
-    (4, 2): ["Ancient Scroll", "Enchanted Sword", "Magic Scroll", "Enchanted Amulet"],
-    (4, 3): ["Water", "Shield", "Old Sword"],
-    (4, 4): ["Food", "Health Potion"]
-}
-
-game_map: dict = {
-     (0,0): "Uncharted Territory",
-     (0,1): "Abandoned Village",
-     (0,2): "Uncharted Territory",
-     (0,3): "Haunted Forest",
-     (0,4): "Mystical City",
-     (1,0): "Abandoned Village",
-     (1,1): "Ancient Ruins",
-     (1,2): "Uncharted Territory",
-     (1,3): "Magical Springs",
-     (1,4): "Uncharted Territory",
-     (2,0): "Magical Springs",
-     (2,1): "Uncharted Territory",
-     (2,2): "Enchanted Castle",
-     (2,3): "Uncharted Territory",
-     (2,4): "Forest Camp",
-     (3,0): "Mystical City",
-     (3,1): "Uncharted Territory",
-     (3,2): "Mystical City",
-     (3,3): "Uncharted Territory",
-     (3,4): "Ancient Ruins",
-     (4,0): "Haunted Forest",
-     (4,1): "Uncharted Territory",
-     (4,2): "Forest Camp",
-     (4,3): "Mystical City",
-     (4,4): "Haunted Forest",
-}
->>>>>>> refs/remotes/origin/main
+game_map, items_at_location = locations.initialize_map()
 
 def clearScreen():
     if os.name == 'nt':
@@ -59,13 +11,8 @@ def clearScreen():
     else:
         os.system('clear')
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/main
 def playGame():
     isPlaying: bool = True
-    global character
     narrative = (
         f"Welcome, {character['name']}! You stand at the edge of the Uncharted Territory, where danger and "
         "opportunity lurk at every turn. Your journey to the Enchanted Castle begins here. "
@@ -111,28 +58,24 @@ def playGame():
             print("Thank you for playing Adventure Quest!")
             isPlaying: bool = False
     
+        elif player_command == 'n':
+            locations.move_character('n', character)
+        
+        elif player_command == 'w':
+            locations.move_character('w', character)
 
+        elif player_command == 'e':
+            locations.move_character('e', character)
+        
+        elif player_command == 's':
+            locations.move_character('s', character)
 
         elif player_command == 'i':
-            print("=" * 80)
-            print(f"{'Inventory':^80}")
-            print("=" * 80)
-            print("You are carrying:")
-            for item in character['inventory']:
-                print(f"- {item}")
-            print("=" * 80)
+            char.view_inventory(character)
             continue
         
         elif player_command == 'm':
-            print("=" * 80)
-            print(f"{'Adventure Quest - Game Map':^80}")
-            print("=" * 80)
-            print("| Coordinates | Location Name        |")
-            print("|-------------|----------------------|")
-            for coord, location in game_map.items():
-                coordinates_str = f"({coord[0]}, {coord[1]})"
-                print(f"| {coordinates_str:<11} | {location:<20} |")
-            print("=" * 80)
+            locations.display_map(character)
             continue
         
         elif player_command.startswith('u '):
@@ -187,16 +130,12 @@ def playGame():
         elif player_command.startswith('p '):
             item_picked = player_command[2:].strip()
             if item_picked in items_at_location.get((x, y), []):
-                character['inventory'].append(item_picked)
+                char.add_to_inventory(character, item_picked)
                 items_at_location[(x, y)].remove(item_picked)
-                print(f"You picked up {item_picked}.")
 
         elif player_command.startswith('d '):
             item_dropped = player_command[2:].strip()
-            if item_dropped in character['inventory']:
-                items_at_location[(x, y)].append(item_dropped)
-                character['inventory'].remove(item_dropped)
-                print(f"You dropped {item_dropped}.")
+            char.remove_from_inventory(character, item_dropped)
         
         elif player_command == 'c':
             items_at_current_location = items_at_location.get(character['location'], [])
@@ -205,7 +144,7 @@ def playGame():
                 print(f"- {item}")
            
         elif player_command == 'q':
-            save_game(character, items_at_location, "players.txt")
+            save_load.save_game(character, items_at_location, "players.txt")
 
         else:
             print("Invalid command. Please try again.")
@@ -237,12 +176,12 @@ print(f"{'Adventure Quest':^80}")
 print("=" * 80)
 
 if menu_choice == '1':
-    character: dict = createCharacter()
+    character: dict = char.createCharacter()
 
 elif menu_choice == '2':
     print("Load a Saved Game!\n")
     character_name = input("Enter your character's name: ")
-    load_game(character_name)
+    save_load.load_game(character_name)
     if character['name'] == character_name:
             print(f"Welcome back, {character['name']}! Let's begin where you left off.")
             playGame()

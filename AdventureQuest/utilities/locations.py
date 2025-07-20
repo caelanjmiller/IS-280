@@ -1,3 +1,11 @@
+"""
+Module aims to :
+1. Initialize and define locations within Adventure Quest
+2. Enable display of game map
+3. Enable character movement within appropriate bounds
+4. Inspect items present at a given location
+"""
+
 game_map: dict = {
      (0,0): "Uncharted Territory",
      (0,1): "Abandoned Village",

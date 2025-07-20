@@ -13,7 +13,7 @@ def update_character(character, changes):
     """
     Updates character stats based upon provided in game changes
     """
-    pass
+    character
 
 def view_inventory(character):
     """
@@ -31,17 +31,17 @@ def add_to_inventory(character, item):
     """
     Adds an item to the character's inventory
     """
-    item_picked = player_command[2:].strip()
-    if item_picked in items_at_location.get((x, y), []):
-        character['inventory'].append(item_picked)
-        items_at_location[(x, y)].remove(item_picked)
-        print(f"You picked up {item_picked}.")
+    if item not in character['inventory']:
+        character['inventory'].append(item)
+        print(f"You picked up {item}.")
 
 def remove_from_inventory(character, item):
     """
     Removes an item from the character's inventory
     """
-    pass
+    if item in character['inventory']:
+        character['inventory'].remove(item)
+        print(f"You dropped {item}.")
 
 
 
