@@ -1,3 +1,9 @@
+"""
+Module aims to:
+1. Initialize new characters
+2. Handle character stats & inventory
+"""
+
 def createCharacter() -> dict:
     """
     Creates a new character via player input(s)
@@ -9,11 +15,15 @@ def createCharacter() -> dict:
     print(f"Character created! Name: {character['name']}, Health: {character['health']}, Strength: {character['strength']}\n")
     return character
 
-def update_character(character, changes):
+def update_character(character: dict, changes: dict):
     """
     Updates character stats based upon provided in game changes
     """
-    character
+    for char_stat, effect in changes.items():
+        if char_stat in character:
+            character[char_stat] += effect
+        else:
+            character[char_stat] = effect
 
 def view_inventory(character):
     """
@@ -42,8 +52,6 @@ def remove_from_inventory(character, item):
     if item in character['inventory']:
         character['inventory'].remove(item)
         print(f"You dropped {item}.")
-
-
 
 default_character: dict = {
     'health' : 100,
