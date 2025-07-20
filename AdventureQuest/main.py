@@ -12,7 +12,7 @@ def clearScreen():
         os.system('clear')
 
 def playGame():
-    isPlaying: bool = True
+    game_running: bool = True
     narrative = (
         f"Welcome, {character['name']}! You stand at the edge of the Uncharted Territory, where danger and "
         "opportunity lurk at every turn. Your journey to the Enchanted Castle begins here. "
@@ -22,7 +22,7 @@ def playGame():
     print(narrative)
     print("Press Enter to Begin!")
     input()
-    while isPlaying:
+    while game_running:
         print("=" * 80)
         print(f"{'Adventure Quest':^80}")
         x,y = character['location']
@@ -53,12 +53,8 @@ def playGame():
         print("=" * 80)
 
         player_command: str = input("\nEnter your command: ")
-
-        if player_command == "q":
-            print("Thank you for playing Adventure Quest!")
-            isPlaying: bool = False
     
-        elif player_command == 'n':
+        if player_command == 'n':
             locations.move_character('n', character)
         
         elif player_command == 'w':
@@ -138,20 +134,16 @@ def playGame():
             char.remove_from_inventory(character, item_dropped)
         
         elif player_command == 'c':
-            items_at_current_location = items_at_location.get(character['location'], [])
-            print(f"You look around and find the following items:")
-            for item in items_at_current_location:
-                print(f"- {item}")
+            locations.inspect_location(character, items_at_location)
            
         elif player_command == 'q':
-            save_load.save_game(character, items_at_location, "players.txt")
+            print("Thank you for playing Adventure Quest!")
+            save_load.save_game(character, items_at_location)
+            game_running: bool = False
 
         else:
             print("Invalid command. Please try again.")
-        
-        character['location'] = (x,y)
-
-
+    
 print("=" * 80)
 print(f"{'Adventure Quest':^80}")
 print("=" * 80)
@@ -177,17 +169,19 @@ print("=" * 80)
 
 if menu_choice == '1':
     character: dict = char.createCharacter()
+    playGame()
 
 elif menu_choice == '2':
     print("Load a Saved Game!\n")
     character_name = input("Enter your character's name: ")
-    save_load.load_game(character_name)
+    character: dict = save_load.load_game(character_name)
     if character['name'] == character_name:
             print(f"Welcome back, {character['name']}! Let's begin where you left off.")
             playGame()
     else:
         print("Failed to load the game. Starting a new game...")
-        createCharacter()
+        char.createCharacter()
+        playGame()
 
 elif menu_choice == '3':
     print("Thank you for playing Adventure Quest!")

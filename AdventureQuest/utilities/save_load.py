@@ -1,6 +1,6 @@
 from pathlib import Path
 
-def save_game(character, location_items, filename="players.txt"):
+def save_game(character: dict, location_items: dict):
     with open(filename, "a") as save_file:
         save_file.write("Character\n")
         save_file.write(f"{character['name']},{character['health']},{character['strength']},"
@@ -16,8 +16,9 @@ def save_game(character, location_items, filename="players.txt"):
 
         save_file.write("---\n")
 
-def load_game(character, filename="players.txt"):
-    pass
+def load_game(character_name: str) -> dict:
+    with open(filename, "r") as save_file:
+        return {}
 
 
 filename: Path = Path("players.txt")
