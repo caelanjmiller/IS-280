@@ -3,6 +3,55 @@ import os
 from utilities.character import *
 from npcs, quests, items, save_load
 
+<<<<<<< HEAD
+=======
+items_at_location = {
+    (0, 1): ["Health Potion", "Magic Scroll"],
+    (0, 3): ["Shield", "Ancient Scroll"],
+    (0, 4): ["Ancient Relic", "Enchanted Sword", "Health Potion"],
+    (1, 0): ["Ancient Scroll", "Magic Scroll", "Shield", "Old Sword"],
+    (1, 1): ["Ancient Relic", "Enchanted Sword"],
+    (1, 3): ["Water", "Water", "Water"],
+    (2, 0): ["Water", "Water", "Water"],
+    (2, 2): ["Enchanted Amulet", "Emulated Sword"],
+    (2, 4): ["Old Sword", "Magic Scroll", "Ancient Relic", "Health Potion"],
+    (3, 0): ["Water", "Food", "Enchanted Amulet"],
+    (3, 2): ["Old Sword", "Food", "Old Sword"],
+    (3, 4): ["Ancient Relic", "Shield", "Old Sword"],
+    (4, 0): ["Food", "Magic Scroll"],
+    (4, 2): ["Ancient Scroll", "Enchanted Sword", "Magic Scroll", "Enchanted Amulet"],
+    (4, 3): ["Water", "Shield", "Old Sword"],
+    (4, 4): ["Food", "Health Potion"]
+}
+
+game_map: dict = {
+     (0,0): "Uncharted Territory",
+     (0,1): "Abandoned Village",
+     (0,2): "Uncharted Territory",
+     (0,3): "Haunted Forest",
+     (0,4): "Mystical City",
+     (1,0): "Abandoned Village",
+     (1,1): "Ancient Ruins",
+     (1,2): "Uncharted Territory",
+     (1,3): "Magical Springs",
+     (1,4): "Uncharted Territory",
+     (2,0): "Magical Springs",
+     (2,1): "Uncharted Territory",
+     (2,2): "Enchanted Castle",
+     (2,3): "Uncharted Territory",
+     (2,4): "Forest Camp",
+     (3,0): "Mystical City",
+     (3,1): "Uncharted Territory",
+     (3,2): "Mystical City",
+     (3,3): "Uncharted Territory",
+     (3,4): "Ancient Ruins",
+     (4,0): "Haunted Forest",
+     (4,1): "Uncharted Territory",
+     (4,2): "Forest Camp",
+     (4,3): "Mystical City",
+     (4,4): "Haunted Forest",
+}
+>>>>>>> refs/remotes/origin/main
 
 def clearScreen():
     if os.name == 'nt':
@@ -10,6 +59,10 @@ def clearScreen():
     else:
         os.system('clear')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/main
 def playGame():
     isPlaying: bool = True
     global character
