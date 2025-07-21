@@ -1,4 +1,13 @@
 from pathlib import Path
+import os
+
+def clearScreen(delay=True):
+    if delay:
+        input("Press Enter to Continue")
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def save_game(character: dict, location_items: dict):
     with open(filename, "a") as save_file:
@@ -22,3 +31,4 @@ def load_game(character_name: str) -> dict:
 
 
 filename: Path = Path("players.txt")
+

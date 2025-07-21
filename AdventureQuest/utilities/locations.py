@@ -90,24 +90,24 @@ def move_character(direction: str, character: dict):
             x -= 1
         else:
             print("You cannot move further north.")
-
+            
     elif direction == 'e':
         if y < 4:
             y += 1
         else:
             print("You cannot move further east.")
-    
+            
     elif direction == 's':
         if x < 4:
             x += 1
         else:
             print("You cannot move further south.")
-
+            
     elif direction == 'w':
         if y > 0:
             y -= 1
         else:
-            print("You cannot move further west.")
+            print("You cannot move further west.")       
 
     character['location'] = (x,y)
 
@@ -116,6 +116,9 @@ def inspect_location(character: dict, items_at_location: dict):
     List items available at the character's current location
     """
     items_at_current_location = items_at_location.get(character['location'], [])
-    print(f"You look around and find the following items:")
-    for item in items_at_current_location:
-        print(f"- {item}")
+    if not items_at_current_location:
+        print(f"There are no items at this location.")
+    else:
+        print(f"You look around and find the following items:")
+        for item in items_at_current_location:
+            print(f"- {item}")

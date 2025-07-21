@@ -1,15 +1,7 @@
-import os
-
 from utilities import character as char
 from utilities import locations, npcs, quests, items, save_load
 
 game_map, items_at_location = locations.initialize_map()
-
-def clearScreen():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
 
 def playGame():
     game_running: bool = True
@@ -20,18 +12,16 @@ def playGame():
         "Haunted Forest beckons with eerie silence."
     )
     print(narrative)
-    print("Press Enter to Begin!")
-    input()
+    save_load.clearScreen()
     while game_running:
         print("=" * 80)
         print(f"{'Adventure Quest':^80}")
-        x,y = character['location']
         current_coordinates = character['location']
         current_location = game_map[current_coordinates]
         print(f"{'Location: ' + current_location + ' ' + str(current_coordinates):^80}")        
         print("=" * 80)
 
-        print(f"| Name: {character['name']:<15} Health: {character['health']:<15} Strength: {character['strength']:<24}|")
+        print(f"| Name: {character['name']:<15} Health: {character['health']:<15} Strength: {character['strength']:<25}|")
         print(f"| Level: {character['level']:<14} Gold: {character['gold']:<17} Magic: {character['magic']:<24} |")
         print("=" * 80)
 
@@ -68,11 +58,9 @@ def playGame():
 
         elif player_command == 'i':
             char.view_inventory(character)
-            continue
-        
+            
         elif player_command == 'm':
             locations.display_map(character)
-            continue
         
         elif player_command.startswith('u '):
             item_used = player_command[2:].strip()
@@ -130,7 +118,7 @@ def playGame():
         elif player_command.startswith('d '):
             item_dropped = player_command[2:].strip()
             items.drop_item(character, items_at_location, item_dropped)
-        
+
         elif player_command == 'c':
             locations.inspect_location(character, items_at_location)
            
@@ -138,9 +126,12 @@ def playGame():
             print("Thank you for playing Adventure Quest!")
             save_load.save_game(character, items_at_location)
             game_running: bool = False
+            save_load.clearScreen()
 
         else:
             print("Invalid command. Please try again.")
+
+        save_load.clearScreen()
 
 print("=" * 80)
 print(f"{'Adventure Quest':^80}")
