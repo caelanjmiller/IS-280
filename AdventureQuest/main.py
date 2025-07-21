@@ -62,7 +62,7 @@ def playGame():
 
         elif player_command == 'e':
             locations.move_character('e', character)
-        
+
         elif player_command == 's':
             locations.move_character('s', character)
 
@@ -125,13 +125,11 @@ def playGame():
 
         elif player_command.startswith('p '):
             item_picked = player_command[2:].strip()
-            if item_picked in items_at_location.get((x, y), []):
-                char.add_to_inventory(character, item_picked)
-                items_at_location[(x, y)].remove(item_picked)
+            items.pick_up_item(character, items_at_location, item_picked)
 
         elif player_command.startswith('d '):
             item_dropped = player_command[2:].strip()
-            char.remove_from_inventory(character, item_dropped)
+            items.drop_item(character, items_at_location, item_dropped)
         
         elif player_command == 'c':
             locations.inspect_location(character, items_at_location)
@@ -143,7 +141,7 @@ def playGame():
 
         else:
             print("Invalid command. Please try again.")
-    
+
 print("=" * 80)
 print(f"{'Adventure Quest':^80}")
 print("=" * 80)

@@ -7,7 +7,6 @@ Module aims to:
 """
 
 import utilities.character as char
-from character import add_to_inventory, remove_from_inventory
 
 def pick_up_item(character: dict, items_at_location: dict, item: str):
     """
