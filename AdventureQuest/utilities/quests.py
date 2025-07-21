@@ -60,7 +60,7 @@ quests = {
         "status": "Not Started",
         "start_location": (3, 2),
         "objective_location": None,
-        "reward": {"gold": -10, "items": ["Health Potion"]},  # assuming a gold cost
+        "reward": {"gold": -10, "items": ["Health Potion"]},
         "choices": {
             "request healing": "The Healer restores your vitality.",
             "decline": "You leave without receiving aid."
