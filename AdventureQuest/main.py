@@ -2,6 +2,8 @@ from utilities import character as char
 from utilities import locations, npcs, quests, items, save_load
 
 game_map, items_at_location = locations.initialize_map()
+npcs = npcs.npcs
+quests = quests.quests
 
 def playGame():
     game_running: bool = True
@@ -64,52 +66,7 @@ def playGame():
         
         elif player_command.startswith('u '):
             item_used = player_command[2:].strip()
-            if item_used in character["inventory"]:
-                if item_used == "Health Potion":
-                    character['health'] += 20
-                    print("You used the Health Potion and gained 20 health points!")
-        
-                elif item_used == "Magic Scroll":
-                    character['magic'] += 10
-                    print("You used the Magic Scroll and gained 10 magic points!")
-
-                elif item_used == "Food":
-                    print("You ate the food.")
-
-                elif item_used == "Water":
-                    print("You drank the water.")
-
-                elif item_used == "Shield":
-                    character['strength'] += 5
-                    print("You used the shield and your strength increased by 5!")
-
-                elif item_used == "Old Sword":
-                    character['strength'] += 10
-                    print("Old Sword has no effect outside of combat!")
-
-                elif item_used == "Enchanted Amulet":
-                    character['health'] += 5
-                    character['magic'] += 5
-                    print("You used the Enchanted Amulet and gained 5 health points and 5 magic points!")
-
-                elif item_used == "Ancient Scroll":
-                    character['level'] += 1
-                    print("You used the Ancient Scroll and your level increased by 1!")
-
-                elif item_used == "Gold Coin":
-                    print("You used the gold coin!")
-
-                elif item_used == "Enchanted Sword":
-                    character['strength'] += 15
-                    print("You used the Enchanted Sword and your strength increased by 15!")
-
-                elif item_used == "Ancient Relic":
-                    print("You used the Ancient Relic and revealed a hidden path!")
-
-                character['inventory'].remove(item_used)
-
-            else:
-                print(f"You don't have {item_used} in your inventory.")
+            items.use_item(character, item_used)
 
         elif player_command.startswith('p '):
             item_picked = player_command[2:].strip()

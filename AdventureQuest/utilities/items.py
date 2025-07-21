@@ -32,6 +32,43 @@ def use_item(character: dict, item: str):
     """
     effects: dict = item_effects[item]
     char.update_character(character, effects)
+    if item == "Health Potion":
+        print("You used the Health Potion and gained 20 health points!")
+        
+    elif item == "Magic Scroll":
+        print("You used the Magic Scroll and gained 10 magic points!")
+
+    elif item == "Food":
+        print("You ate the food.")
+
+    elif item == "Water":
+        print("You drank the water.")
+
+    elif item == "Shield":
+        print("You used the shield and your strength increased by 5!")
+
+    elif item == "Old Sword":
+        print("You used Old Sword and your strength increased by 10!")
+
+    elif item == "Enchanted Amulet":
+        print("You used the Enchanted Amulet and gained 5 health points and 5 magic points!")
+
+    elif item == "Ancient Scroll":
+        print("You used the Ancient Scroll and your level increased by 1!")
+
+    elif item == "Gold Coin":
+        print("You traded the gold coin!")
+
+    elif item == "Enchanted Sword":
+        print("You used the Enchanted Sword and your strength increased by 15!")
+
+    elif item == "Ancient Relic":
+        print("You used the Ancient Relic and revealed a hidden path!")
+
+    else:
+        print(f"You don't have {item} in your inventory.")
+    
+    character['inventory'].remove(item)
 
 def manage_items(command: str, character: dict, items_at_location: dict):
     """
@@ -53,10 +90,10 @@ item_effects: dict = {
         "magic": 10
     },
     "Food": {
-
+        "health": 2
     },
     "Water": {
-
+        "health": 2
     },
     "Shield": {
         "strength": 5
@@ -70,9 +107,6 @@ item_effects: dict = {
     },
     "Ancient Scroll": {
         "level": 1
-    },
-    "Gold Coin": {
-
     },
     "Enchanted Sword": {
         "strength": 15
