@@ -119,4 +119,3 @@ def inspect_location(character: dict, items_at_location: dict):
     print(f"You look around and find the following items:")
     for item in items_at_current_location:
         print(f"- {item}")
-    pass
