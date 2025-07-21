@@ -54,3 +54,27 @@ npcs: dict = {
         "description": "The Adventurer shares stories of hidden treasures and warns about dangers lurking in specific locations. Listening may lead to new side quests or avoidable risks."
     }
 }
+
+def initialize_npcs() -> dict:
+    """
+    Sets up NPCs, their locations and associated quests
+    """
+    return npcs
+
+def interact_with_npc(character: dict, location: tuple):
+    """
+    Displays dialogue and allows interaction with the NPC at the current location
+    """
+    pass
+
+def npc_give_quest(npc_name: str, character: dict):
+    """
+    Initiates a quest from the specified NPC
+    """
+    pass
+
+def npc_trade(npc_name: str, character: dict):
+    """
+    Handles item trading with NPCs
+    """
+    pass
