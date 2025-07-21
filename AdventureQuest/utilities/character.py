@@ -41,9 +41,8 @@ def add_to_inventory(character, item):
     """
     Adds an item to the character's inventory
     """
-    if item not in character['inventory']:
-        character['inventory'].append(item)
-        print(f"You picked up {item}.")
+    character['inventory'].append(item)
+    print(f"You picked up {item}.")
 
 def remove_from_inventory(character, item):
     """

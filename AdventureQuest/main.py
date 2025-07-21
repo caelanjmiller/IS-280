@@ -31,14 +31,14 @@ def playGame():
         print(f"{'Location: ' + current_location + ' ' + str(current_coordinates):^80}")        
         print("=" * 80)
 
-        print(f"| Name: {character['name']:<15} Health: {character['health']:<15} Strength: {character['strength']:<25}|")
+        print(f"| Name: {character['name']:<15} Health: {character['health']:<15} Strength: {character['strength']:<24}|")
         print(f"| Level: {character['level']:<14} Gold: {character['gold']:<17} Magic: {character['magic']:<24} |")
         print("=" * 80)
 
         available_commands = [
             'Move: north (n), south (s), east (e), west (w)',
             'Actions: inspect (c), talk (t)',
-            'Item Actions - add [item_name]: pick up (p), drop (d), use (u)',
+            'Item Actions: pick up (p), drop (d), use (u)',
             'View Inventory (i)',
             'View Map (m)',
             'Quit (q)'
