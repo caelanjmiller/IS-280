@@ -19,11 +19,8 @@ def update_character(character, changes):
     """
     Updates character stats based upon provided in game changes
     """
-    for char_stat, effect in changes.items():
-        if char_stat in character:
-            character[char_stat] += effect
-        else:
-            character[char_stat] = effect
+    for key, value in changes.items():
+        character[key] += value
 
 def view_inventory(character):
     """
