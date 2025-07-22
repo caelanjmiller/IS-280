@@ -4,7 +4,7 @@ Module aims to:
 2. Handle character stats & inventory
 """
 
-def createCharacter() -> dict:
+def create_character() -> dict:
     """
     Creates a new character via player input(s)
     """
@@ -15,7 +15,7 @@ def createCharacter() -> dict:
     print(f"Character created! Name: {character['name']}, Health: {character['health']}, Strength: {character['strength']}\n")
     return character
 
-def update_character(character: dict, changes: dict):
+def update_character(character, changes):
     """
     Updates character stats based upon provided in game changes
     """
@@ -29,13 +29,7 @@ def view_inventory(character):
     """
     Displays the character's current inventory
     """
-    print("=" * 80)
-    print(f"{'Inventory':^80}")
-    print("=" * 80)
-    print("You are carrying:")
-    for item in character['inventory']:
-        print(f"- {item}")
-    print("=" * 80)
+    print("Inventory:", ", ".join(character["inventory"]))
 
 def add_to_inventory(character, item):
     """
@@ -48,18 +42,18 @@ def remove_from_inventory(character, item):
     """
     Removes an item from the character's inventory
     """
-    if item in character['inventory']:
-        character['inventory'].remove(item)
-        print(f"You dropped {item}.")
+    if item in character["inventory"]:
+        character["inventory"].remove(item)
 
-default_character: dict = {
-    'health' : 100,
+default_character = {
+    'name': "",
+    'health': 100,
     'strength': 10,
     'level': 1,
     'gold': 0,
     'inventory': ['Food', 'Water'],
     'magic': 0,
-    'location': (0,0),
+    'location': (0, 0)
 }
 
 inCombat: bool = False

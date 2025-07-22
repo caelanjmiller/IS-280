@@ -114,7 +114,7 @@ print(f"{'Adventure Quest':^80}")
 print("=" * 80)
 
 if menu_choice == '1':
-    character: dict = char.createCharacter()
+    character: dict = char.create_character()
     playGame()
 
 elif menu_choice == '2':
@@ -126,7 +126,7 @@ elif menu_choice == '2':
             playGame()
     else:
         print("Failed to load the game. Starting a new game...")
-        char.createCharacter()
+        char.create_character()
         playGame()
 
 elif menu_choice == '3':
