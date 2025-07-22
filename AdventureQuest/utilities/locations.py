@@ -35,23 +35,23 @@ game_map: dict = {
 }
 
 items_at_location = {
-    (0, 1): ["Health Potion", "Magic Scroll"],
-    (0, 3): ["Shield", "Ancient Scroll"],
-    (0, 4): ["Ancient Relic", "Enchanted Sword", "Health Potion"],
-    (1, 0): ["Ancient Scroll", "Magic Scroll", "Shield", "Old Sword"],
-    (1, 1): ["Ancient Relic", "Enchanted Sword"],
-    (1, 3): ["Water", "Water", "Water"],
-    (2, 0): ["Water", "Water", "Water"],
-    (2, 2): ["Enchanted Amulet", "Emulated Sword"],
-    (2, 4): ["Old Sword", "Magic Scroll", "Ancient Relic", "Health Potion"],
-    (3, 0): ["Water", "Food", "Enchanted Amulet"],
-    (3, 2): ["Old Sword", "Food", "Old Sword"],
-    (3, 4): ["Ancient Relic", "Shield", "Old Sword"],
-    (4, 0): ["Food", "Magic Scroll"],
-    (4, 2): ["Ancient Scroll", "Enchanted Sword", "Magic Scroll", "Enchanted Amulet"],
-    (4, 3): ["Water", "Shield", "Old Sword"],
-    (4, 4): ["Food", "Health Potion"]
-}
+    (0, 1): ["Old Sword", "Health Potion"],
+    (0, 3): ["Magic Scroll", "Gold Coin"],
+    (0, 4): ["Gold Coin", "Ancient Relic"],
+    (1, 0): ["Old Sword", "Health Potion"],
+    (1, 1): ["Magic Scroll", "Gold Coin"],
+    (1, 3): ["Health Potion", "Gold Coin"],
+    (2, 0): ["Shield", "Health Potion"],
+    (2, 2): ["Enchanted Amulet", "Enchanted Sword", "Ancient Scroll"],
+    (2, 4): ["Ancient Relic", "Gold Coin"],
+    (3, 0): ["Gold Coin", "Ancient Relic"],
+    (3, 2): ["Enchanted Amulet", "Ancient Scroll", "Health Potion", "Gold Coin"],
+    (3, 4): ["Ancient Relic", "Gold Coin"],
+    (4, 0): ["Magic Scroll", "Gold Coin"],
+    (4, 2): ["Enchanted Amulet", "Ancient Scroll", "Health Potion", "Gold Coin"],
+    (4, 3): ["Health Potion", "Gold Coin"],
+    (4, 4): ["Ancient Relic", "Gold Coin"]
+        }
 
 def initialize_map() -> tuple:
     """
