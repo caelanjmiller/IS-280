@@ -2,8 +2,8 @@ from utilities import character as char
 from utilities import locations, npcs, quests, items, save_load
 
 game_map, items_at_location = locations.initialize_map()
-npcs = npcs.npcs
-quests = quests.quests
+interactive_npcs = npcs.npcs
+player_quests = quests.quests
 
 def playGame():
     game_running: bool = True
@@ -85,10 +85,17 @@ def playGame():
             save_load.save_game(character, items_at_location)
             game_running: bool = False
 
+        elif player_command == 't':
+            pass
+        
         else:
             print("Invalid command. Please try again.")
 
+        present_npc: dict = interactive_npcs.get(character['location'], {})
+
         save_load.clearScreen()
+
+
 
 print("=" * 80)
 print(f"{'Adventure Quest':^80}")

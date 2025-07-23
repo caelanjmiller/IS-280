@@ -103,31 +103,41 @@ quests = {
     }
 }
 
-def initialize_quests() -> dict:
+def initialize_quests():
     """
     Sets up available quests and their objectives
     """
     return quests
 
-def accept_quest(quest_name: str, character: dict):
+def accept_quest(quest_name, character):
     """
     Adds a quest to the character's active quest
     """
-    pass
+    if quest_name not in character['quests']:
+        character['quests'][quest_name] = {'status': "In Progress"}
+        print(f"Quest '{quest_name}' has been added to your quest log.")
+    else:
+        print(f"'{quest_name}' is already part of your quest log.")
 
-def complete_quest(quest_name: str, character: dict):
+def complete_quest(quest_name, character):
     """
     Updates quest status to completed and applies rewards
     """
-    pass
+    character['quests'][quest_name]['status'] = "Completed"
+    for item, reward in quests[quest_name]['reward'].items():
+        if item == 'gold':
+            character['gold'] += reward
+        else:
+            for spoil in reward:
+                character['inventory'].append(spoil)
 
-def check_quest_progress(character: dict):
+def check_quest_progress(character):
     """
     Displays the status of active quests
     """
     pass
 
-def quest_interaction(location: tuple, character: dict):
+def quest_interaction(location, character):
     """
     Triggers quests or objectives based on player's location
     """
