@@ -91,6 +91,7 @@ def interact_with_npc(character, location):
         choice: str = wrapped_text_prompt(f"Do you want to accept the quest '{npc_quest}'?", "(yes/no): ")
         if choice.lower() == "yes":
             npc_give_quest(npc_name, character)
+            wrapped_text(quests_aq[npc_quest]['choices']['accept'])
         elif choice.lower() == "no":
             wrapped_text(f"You declined '{npc_quest}'")
         else:
@@ -112,4 +113,7 @@ def npc_trade(npc_name, character):
     """
     Handles item trading with NPCs
     """
-    pass
+    wrapped_text(f"You offer an item to {npc_name}")
+    for npc in npcs_aq.values():
+        if npc['name'] == npc_name:
+            pass

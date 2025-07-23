@@ -1,4 +1,11 @@
-quests = {
+"""
+Module aims to:
+1. Define quests for Adventure Quest
+2. Handle acceptance & completion of quests
+3. Checking current quest(s) progress
+4. Check for quest/object interaction based upon location
+"""
+quests_aq = {
     "Retrieve Ancient Scroll": {
         "description": "Retrieve the Ancient Scroll from the Enchanted Castle.",
         "status": "Not Started",
@@ -6,99 +13,99 @@ quests = {
         "objective_location": (2, 2),
         "reward": {"gold": 50, "items": ["Ancient Scroll"]},
         "choices": {
-            "accept": "Begin your journey to the Enchanted Castle.",
+            "accept": "You agree to retrieve the scroll and set off on your journey.",
             "decline": "The Elder looks disappointed."
         }
     },
     "Defend the Village": {
-        "description": "Help defend the village from impending danger by collecting defense items and setting traps.",
+        "description": "Help defend the village from an imminent attack.",
         "status": "Not Started",
         "start_location": (2, 4),
-        "objective_location": None,
+        "objective_location": None,  # No specific location
         "reward": {"gold": 30, "items": ["Shield"]},
         "choices": {
-            "accept": "You prepare to defend the village.",
+            "accept": "You prepare to defend the village by gathering weapons and traps.",
             "decline": "The Guard Captain warns of the consequences."
         }
     },
-    "The Scholar’s Collection": {
-        "description": "The Scholar requests three rare items from different locations for research.",
+    "The Scholar's Collection": {
+        "description": "Gather three rare items for the Scholar's research.",
         "status": "Not Started",
         "start_location": (1, 1),
-        "objective_location": None,
-        "reward": {"gold": 40, "items": ["Magic Scroll"]},
+        "objective_location": None,  # Items are scattered
+        "reward": {"gold": 40, "items": ["Research Notes"]},
         "choices": {
-            "accept": "You agree to help the Scholar with their research.",
+            "accept": "The Scholar thanks you and gives you a list of items to find.",
             "decline": "The Scholar expresses disappointment."
         }
     },
     "Treasure Hunt Clues": {
-        "description": "The Mystic provides clues to help you find hidden treasures in the Haunted Forest.",
+        "description": "The Mystic offers clues to locate hidden treasures in the Haunted Forest.",
         "status": "Not Started",
         "start_location": (4, 0),
         "objective_location": (0, 3),
-        "reward": {"gold": 20, "items": ["Gold Coin"]},
+        "reward": {"gold": 20, "items": ["Treasure Map"]},
         "choices": {
-            "ask for advice": "The Mystic whispers hints about the treasure's dangers.",
-            "offer an item": "The Mystic accepts your offering and shares a valuable clue.",
-            "ignore": "You walk away without any help."
+            "ask for advice": "The Mystic shares cryptic clues about the treasure.",
+            "offer an item": "The Mystic provides a detailed map in exchange for a rare item.",
+            "ignore": "You leave the Mystic without any information."
         }
     },
     "Test of Strength": {
-        "description": "Face a challenge of strength from the Warrior to earn an upgraded weapon.",
+        "description": "Prove your strength in a contest with the Warrior.",
         "status": "Not Started",
         "start_location": (2, 0),
-        "objective_location": None,
-        "reward": {"gold": 0, "items": ["Enchanted Sword"]},
+        "objective_location": None,  # Event happens on the spot
+        "reward": {"items": ["Upgraded Sword"]},
         "choices": {
-            "accept": "You brace yourself for the strength trial.",
-            "decline": "The Warrior scoffs at your cowardice."
+            "accept": "The Warrior challenges you to a test of strength.",
+            "decline": "The Warrior remarks on your lack of courage."
         }
     },
     "Healing Aid": {
-        "description": "The Healer offers health restoration or a healing potion for a fee.",
+        "description": "The Healer offers to restore your health or sell you a potion.",
         "status": "Not Started",
         "start_location": (3, 2),
-        "objective_location": None,
-        "reward": {"gold": -10, "items": ["Health Potion"]},
+        "objective_location": None,  # Event happens on the spot
+        "reward": {"gold": -10, "items": ["Healing Potion"]},  # Cost 10 gold
         "choices": {
-            "request healing": "The Healer restores your vitality.",
-            "decline": "You leave without receiving aid."
+            "request healing": "The Healer restores your health for a fee.",
+            "decline": "You leave without assistance."
         }
     },
     "Weapon Upgrade": {
-        "description": "Upgrade your weapons or armor at the Blacksmith for gold or trade.",
+        "description": "The Blacksmith offers to upgrade your weapon or armor.",
         "status": "Not Started",
         "start_location": (3, 4),
-        "objective_location": None,
-        "reward": {"gold": -20, "items": ["Upgraded Weapon"]},
+        "objective_location": None,  # Event happens on the spot
+        "reward": {"items": ["Upgraded Armor"]},
         "choices": {
-            "upgrade": "The Blacksmith enhances your gear.",
-            "decline": "You choose to keep your current equipment."
+            "upgrade": "The Blacksmith upgrades your equipment for gold or an item.",
+            "decline": "You keep your current equipment."
         }
     },
     "Trade with the Merchant": {
-        "description": "Buy, sell, or trade various items with the Merchant.",
+        "description": "The Merchant offers to trade, buy, or sell items.",
         "status": "Not Started",
         "start_location": (1, 3),
-        "objective_location": None,
-        "reward": {"gold": 0, "items": []},
+        "objective_location": None,  # Event happens on the spot
+        "reward": None,  # Based on trades
         "choices": {
-            "buy": "You purchase items from the Merchant.",
-            "sell": "You sell your goods for gold.",
-            "trade": "You exchange items with the Merchant.",
+            "buy": "You purchase items, deducting gold from your inventory.",
+            "sell": "You sell items, receiving gold in return.",
+            "trade": "You exchange an item for another.",
             "decline": "You walk away from the transaction."
         }
     },
     "Locate Hidden Relic": {
-        "description": "Find a hidden relic in the Mystical City, warned by the Adventurer.",
+        "description": "The Adventurer shares clues about a hidden relic in the Mystical City.",
         "status": "Not Started",
         "start_location": (0, 3),
         "objective_location": (4, 3),
-        "reward": {"gold": 100, "items": ["Ancient Relic"]},
+        "reward": {"items": ["Hidden Relic"]},
         "choices": {
-            "listen": "You receive valuable insights about the Mystical City.",
-            "ignore": "You proceed blindly, unaware of the danger."
+            "listen": "The Adventurer shares vital information about the relic.",
+            "ignore": "You leave without further interaction."
         }
     }
 }
@@ -107,7 +114,7 @@ def initialize_quests():
     """
     Sets up available quests and their objectives
     """
-    return quests
+    return quests_aq
 
 def accept_quest(quest_name, character):
     """
@@ -126,7 +133,7 @@ def complete_quest(quest_name, character):
     Updates quest status to completed and applies rewards
     """
     character['quests'][quest_name]['status'] = "Completed"
-    for item, reward in quests[quest_name]['reward'].items():
+    for item, reward in quests_aq[quest_name]['reward'].items():
         if item == 'gold':
             character['gold'] += reward
         else:
@@ -145,4 +152,9 @@ def quest_interaction(location, character):
     """
     Triggers quests or objectives based on player's location
     """
-    pass
+    quest_info: dict = quests_aq.get(location, {})
+    if quest_info:
+        pass
+        
+    else:
+        return
