@@ -3,23 +3,32 @@ Module aims to:
 1. Save game into text file
 2. Load in previous save from text file
 3. Misc function to clear terminal screen
+4. Misc function to wrap text
 """
-
-from pathlib import Path
 import os
+import textwrap
+
 
 def clearScreen(delay=True):
     """
     Clear the terminal screen upon input (Enter)
     """
     if delay:
-        input("Press Enter to Continue")
+        input("Press Enter to continue...")
     if os.name == 'nt':
         os.system('cls')
     else:
         os.system('clear')
 
-def save_game(character: dict, location_items: dict):
+def wrapped_text(text: str):
+    """
+    Wrap text for terminal throughout Adventure Quest
+    """
+    wrapped_text: str = textwrap.fill(text, width=80)
+    for line in wrapped_text.splitlines():
+        print(f"{line:<76}")
+
+def save_game(character, location_items):
     """
     Save state of Adventure Quest into a text file
     """
@@ -37,7 +46,7 @@ def save_game(character: dict, location_items: dict):
             save_file.write(line + "\n")
         save_file.write("---\n")
 
-def load_game(character_name: str) -> dict:
+def load_game(character_name):
     """
     Load in state of Adventure Quest from text file
     """
@@ -45,5 +54,4 @@ def load_game(character_name: str) -> dict:
         return {}
 
 
-filename: Path = Path("players.txt")
-
+filename = "players.txt"

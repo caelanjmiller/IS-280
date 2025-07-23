@@ -13,13 +13,13 @@ def playGame():
         "To the east lies an Abandoned Village shrouded in mystery, and to the south, a "
         "Haunted Forest beckons with eerie silence."
     )
-    print(narrative)
+    save_load.wrapped_text(narrative)
     save_load.clearScreen()
     while game_running:
         print("=" * 80)
         print(f"{'Adventure Quest':^80}")
         current_coordinates = character['location']
-        current_location = game_map[current_coordinates]
+        current_location = game_map[current_coordinates]['name']
         print(f"{'Location: ' + current_location + ' ' + str(current_coordinates):^80}")        
         print("=" * 80)
 
@@ -43,6 +43,7 @@ def playGame():
         for command in available_commands:
             print(f"| - {command:<75} |")
         print("=" * 80)
+        save_load.wrapped_text(game_map[current_coordinates]['description'])
 
         player_command: str = input("\nEnter your command: ")
     
