@@ -23,8 +23,8 @@ def playGame():
         print(f"{'Location: ' + current_location + ' ' + str(current_coordinates):^80}")        
         print("=" * 80)
 
-        print(f"| Name: {character['name']:<15} Health: {character['health']:<15} Strength: {character['strength']:<25}|")
-        print(f"| Level: {character['level']:<14} Gold: {character['gold']:<17} Magic: {character['magic']:<24} |")
+        print(f"| Name: {character['name']:<16} Health: {character['health']:<14} Strength: {character['strength']:<20} |")
+        print(f"| Level: {character['level']:<15} Gold: {character['gold']:<16} Magic: {character['magic']:<23} |")
         print("=" * 80)
 
         available_commands = [
@@ -84,7 +84,6 @@ def playGame():
             print("Thank you for playing Adventure Quest!")
             save_load.save_game(character, items_at_location)
             game_running: bool = False
-            save_load.clearScreen()
 
         else:
             print("Invalid command. Please try again.")
