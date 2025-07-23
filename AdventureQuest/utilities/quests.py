@@ -113,6 +113,8 @@ def accept_quest(quest_name, character):
     """
     Adds a quest to the character's active quest
     """
+    if 'quests' not in character:
+        character['quests'] = {}
     if quest_name not in character['quests']:
         character['quests'][quest_name] = {'status': "In Progress"}
         print(f"Quest '{quest_name}' has been added to your quest log.")
@@ -134,7 +136,9 @@ def check_quest_progress(character):
     """
     Displays the status of active quests
     """
-    for quest, info in character['quest'].items():
+    if 'quests' not in character or not character['quests']:
+        print(f"You have no active quests.")
+    for quest, info in character['quests'].items():
         print(f"- {quest} : {info['status']}")
 
 def quest_interaction(location, character):

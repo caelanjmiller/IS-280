@@ -44,7 +44,7 @@ def playGame():
 
         save_load.wrapped_text(game_map[current_coordinates]['description'])
         print()
-
+        
         if current_coordinates in npcs_aq:
             npc_interaction: str = npcs_aq[current_coordinates]['interaction']
             save_load.wrapped_text(npc_interaction)
@@ -96,6 +96,7 @@ def playGame():
         
         elif player_command == 'r':
             quests.check_quest_progress(character)
+            print()
 
         else:
             print("Invalid command. Please try again.")
