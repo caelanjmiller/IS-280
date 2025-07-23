@@ -33,6 +33,7 @@ def playGame():
             'Item Actions: pick up (p), drop (d), use (u)',
             'View Inventory (i)',
             'View Map (m)',
+            'View Quest(s) Progress (r)'
             'Quit (q)'
         ]
 
@@ -88,6 +89,9 @@ def playGame():
         elif player_command == 't':
             pass
         
+        elif player_command == 'r':
+            quests.check_quest_progress(character)
+
         else:
             print("Invalid command. Please try again.")
 

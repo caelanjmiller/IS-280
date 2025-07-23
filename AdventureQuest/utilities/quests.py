@@ -128,14 +128,14 @@ def complete_quest(quest_name, character):
         if item == 'gold':
             character['gold'] += reward
         else:
-            for spoil in reward:
-                character['inventory'].append(spoil)
+            character['inventory'].extend(reward)
 
 def check_quest_progress(character):
     """
     Displays the status of active quests
     """
-    pass
+    for quest, info in character['quest'].items():
+        print(f"- {quest} : {info['status']}")
 
 def quest_interaction(location, character):
     """

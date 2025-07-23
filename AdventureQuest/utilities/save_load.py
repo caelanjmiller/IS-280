@@ -44,6 +44,8 @@ def save_game(character, location_items):
             if items:
                 line += "," + ",".join(items)
             save_file.write(line + "\n")
+        for quest, info in character['quests'].items():
+            print(f"{quest},{info['status']}")
         save_file.write("---\n")
 
 def load_game(character_name):
