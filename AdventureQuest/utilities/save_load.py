@@ -27,6 +27,13 @@ def wrapped_text(text: str):
     wrapped_text: str = textwrap.fill(text, width=80)
     for line in wrapped_text.splitlines():
         print(f"{line:<76}")
+    
+def wrapped_text_prompt(text: str, prompt: str = ""):
+    """
+    Wrap text (input) for terminal throughout Adventure Quest 
+    """
+    wrapped_text(text)
+    return input(prompt)
 
 def save_game(character, location_items):
     """

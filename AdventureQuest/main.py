@@ -1,9 +1,9 @@
 from utilities import character as char
-from utilities import locations, npcs, quests, items, save_load
+from utilities import locations, quests, items, save_load, npcs
 
 game_map, items_at_location = locations.initialize_map()
-interactive_npcs = npcs.npcs
-player_quests = quests.quests
+npcs_aq = npcs.initialize_npcs()
+player_quests = quests.initialize_quests()
 
 def playGame():
     game_running: bool = True
@@ -33,18 +33,22 @@ def playGame():
             'Item Actions: pick up (p), drop (d), use (u)',
             'View Inventory (i)',
             'View Map (m)',
-            'View Quest(s) Progress (r)'
+            'View Quest(s) Progress (r)',
             'Quit (q)'
         ]
 
-        print("=" * 80)
-        print(f"{'Adventure Quest':^80}")
-        print("=" * 80)
         print("| Available Commands:".ljust(80) + "|")
         for command in available_commands:
             print(f"| - {command:<75} |")
         print("=" * 80)
+
         save_load.wrapped_text(game_map[current_coordinates]['description'])
+        print()
+
+        if current_coordinates in npcs_aq:
+            npc_interaction: str = npcs_aq[current_coordinates]['interaction']
+            save_load.wrapped_text(npc_interaction)
+            save_load.wrapped_text(f"Press 't' to speak with them.")
 
         player_command: str = input("\nEnter your command: ")
     
@@ -87,15 +91,14 @@ def playGame():
             game_running: bool = False
 
         elif player_command == 't':
-            pass
+            npcs.interact_with_npc(character, current_coordinates)
+
         
         elif player_command == 'r':
             quests.check_quest_progress(character)
 
         else:
             print("Invalid command. Please try again.")
-
-        present_npc: dict = interactive_npcs.get(character['location'], {})
 
         save_load.clearScreen()
 
