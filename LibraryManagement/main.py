@@ -19,22 +19,38 @@ def main():
     is_running = True
 
     while is_running:
-        
+        print("Library Management System")
+        print("-" * len("Library Management System"))
+        print(menu)
         user_choice = input("Select an option: ")
-
         match user_choice:
 
             case "1":
-                pass
+                book_id: str = input("Enter book ID: ")
+                title: str = input("Enter book title: ")
+                author: str = input("Enter book author: ")
+                new_book: Book = Book(book_id, title, author, True)
+                library.append(new_book)
+                print(f"Book '{new_book.title}' added successfully.")
+                print()
 
             case "2":
-                pass
+                user_id: str = input("Enter user ID: ")
+                name: str = input("Enter user name: ")
+                new_user: User = create_user(user_id, name)
+                users.append(new_user)
+                print(f"User '{new_user.name}' added successfully.")
+                print()
 
             case "3":
+                print()
                 list_books(library)
+                print()
 
             case "4":
+                print()
                 list_users(users)
+                print()
 
             case "5":
                 pass

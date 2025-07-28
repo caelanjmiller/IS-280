@@ -1,4 +1,4 @@
-from exceptions import *
+from utilities.exceptions import *
 
 class User:
     def __init__(self, name: str, user_id: str, borrowed_books: list) -> None:
@@ -26,3 +26,8 @@ def list_users(users: list):
         else:
             books = "None"
         print(f"{user.user_id:<10}{user.name:<25}{books}")
+
+def create_user(user_id: str, name: str) -> User:
+    """Create a new library user"""
+    user: User = User(name, user_id, [])
+    return user
