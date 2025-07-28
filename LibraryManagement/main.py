@@ -1,3 +1,11 @@
+from utilities.users import *
+from utilities.books import *
+from utilities.exceptions import *
+from utilities.transactions import *
+
+users: list = []
+library: list = []
+
 def main():
     menu: str = (
     "1. Add Book\n"
@@ -23,10 +31,10 @@ def main():
                 pass
 
             case "3":
-                pass
+                list_books(library)
 
             case "4":
-                pass
+                list_users(users)
 
             case "5":
                 pass
