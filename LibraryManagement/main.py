@@ -3,9 +3,6 @@ from utilities.books import *
 from utilities.exceptions import *
 from utilities.transactions import *
 
-users: list = []
-library: list = []
-
 def main():
     menu: str = (
     "1. Add Book\n"
@@ -53,7 +50,11 @@ def main():
                 print()
 
             case "5":
-                pass
+                user_id: str = input("Enter user ID: ")
+                book_id: str = input("Enter book ID: ")
+                print()
+                borrow_book(user_id, book_id)
+                print()
 
             case "6":
                 print("Exiting the system. Goodbye!")

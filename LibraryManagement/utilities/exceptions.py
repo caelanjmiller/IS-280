@@ -1,24 +1,29 @@
-
 class BookNotFoundError(Exception):
     """
     Raised if the book ID does not exist in the system.
     """
-    pass
+    def __init__(self, book_id: str) -> None:
+        super().__init__(f"Book ID Does Not Exist")
+        self.book_id = book_id
 
 class UserNotFoundError(Exception):
     """
     Raised if the user ID does not exist in the system.
     """
-    pass
+    def __init__(self, user_id: str) -> None:
+        super().__init__(f"User ID Does Not Exist")
+        self.user_id = user_id
 
 class BookAlreadyBorrowedError(Exception):
     """
     Raised if a user tries to borrow a book they already have.
     """
-    pass
+    def __init__(self, user_id: str, book_id: str) -> None:
+        super().__init__(f"User '{user_id}' has already borrowed '{book_id}'.")
 
 class BookNotAvailableError(Exception):
     """
     Raised if the book is unavailable for borrowing.
     """
-    pass
+    def __init__(self, book_id: str) -> None:
+        super().__init__(f"Book ID '{book_id}' is not available for borrowing.")
