@@ -10,7 +10,7 @@ def list_users(users: list):
     """
     print(f"Registered Users:")
     print(f"{'ID':<10}{'Name':<25}{'Borrowed Books'}")
-    print("-" * 60)
+    print("-" * 45)
     for user in users:
         if user.borrowed_books:
             books: str = ", ".join(user.borrowed_books)

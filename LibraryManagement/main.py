@@ -13,11 +13,12 @@ def main():
     "6. Exit\n"
     )
 
+    print("Library Management System")
+    print("-" * len("Library Management System "))
+
     is_running = True
 
     while is_running:
-        print("Library Management System")
-        print("-" * len("Library Management System"))
         print(menu)
         user_choice = input("Select an option: ")
         match user_choice:

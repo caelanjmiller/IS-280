@@ -10,9 +10,10 @@ def list_books(library: list):
     """
     Print formatted list of books with their info
     """
-    print(f"{'ID':<10}{'Title':<30}{'Author':<20}{'Available':<15}")
-    print("-" * 70)
+    print(f"Library Books:")
+    print(f"{'ID':<10}{'Title':<31}{'Author':<20}{'Available'}")
+    print("-" * 75)
     for book in library:
-        print(f"{book.book_id:<10}{book.title:<30}{book.author:<20}{str(book.available):<15}")
+        print(f"{book.book_id:<10}{book.title:<30}{book.author:<20}{str(book.available)}")
 
 library: list = []
