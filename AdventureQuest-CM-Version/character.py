@@ -1,5 +1,5 @@
 class Character():
-    def __init__(self, name, health=100, strength=10, level=1, gold=0, inventory=None, location=(0,0)) -> None:
+    def __init__(self, name, health=100, strength=10, level=1, gold=0, inventory=None, location=(0,0), magic=0) -> None:
         self.name = name
         self.health = health
         self.strength = strength
@@ -7,6 +7,7 @@ class Character():
         self.gold = gold
         self.inventory = inventory if inventory is not None else ['Food', 'Water']
         self.location = location
+        self.magic = magic
 
     def update_character(self, health=0, strength=0, gold=0):
         """
