@@ -1,4 +1,4 @@
-from utilities import character as char
+from character import *
 from utilities import locations, quests, items, save_load, npcs
 
 game_map, items_at_location = locations.initialize_map()
@@ -65,7 +65,7 @@ def playGame():
             locations.move_character('s', character)
 
         elif player_command == 'i':
-            char.view_inventory(character)
+            player.view_inventory()
             
         elif player_command == 'm':
             locations.display_map(character)
@@ -129,9 +129,10 @@ print(f"{'Adventure Quest':^80}")
 print("=" * 80)
 
 if menu_choice == '1':
-    character: dict = char.create_character()
+    player: Character = create_character()
     playGame()
 
+# Come back to this section after fixing load
 elif menu_choice == '2':
     print("Load a Saved Game!\n")
     character_name = input("Enter your character's name: ")
@@ -141,7 +142,7 @@ elif menu_choice == '2':
             playGame()
     else:
         print("Failed to load the game. Starting a new game...")
-        char.create_character()
+        create_character()
         playGame()
 
 elif menu_choice == '3':
