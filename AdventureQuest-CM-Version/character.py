@@ -1,3 +1,5 @@
+from save_load import wrapped_text, wrapped_text_prompt
+
 class Character():
     def __init__(self, name, health=100, strength=10, level=1, gold=0, inventory=None, location=(0,0), magic=0) -> None:
         self.name = name
@@ -45,8 +47,8 @@ def create_character() -> Character:
     """
     Creates a new character via player input(s)
     """
-    print("Create your Character!\n")
-    character_name: str = input("Enter your character's name: ")
+    wrapped_text("Create your Character!\n")
+    character_name: str = wrapped_text_prompt("Enter your character's name", ": ")
     new_character: Character = Character(character_name)
-    print(f"Character created! Name: {new_character.name}, Health: {new_character.health}, Strength: {new_character.strength}\n")
+    wrapped_text(f"Character created! Name: {new_character.name}, Health: {new_character.health}, Strength: {new_character.strength}\n")
     return new_character
