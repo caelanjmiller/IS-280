@@ -59,6 +59,9 @@ class Item():
         self.effects = self.item_effects.get(name, {})
         self.message = self.usage_message.get(name, f"You used {name}.")
 
+    def __str__(self) -> str:
+        return self.name
+
     def use_item(self, character: Character):
         """
         Applies the item's effect and removes it from the inventory

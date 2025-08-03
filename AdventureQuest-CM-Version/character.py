@@ -1,4 +1,5 @@
 from save_load import wrapped_text, wrapped_text_prompt
+from items import Item
 
 class Character():
     def __init__(self, name, health=100, strength=10, level=1, gold=0, inventory=None, location=(0,0), magic=0) -> None:
@@ -7,7 +8,7 @@ class Character():
         self.strength = strength
         self.level = level
         self.gold = gold
-        self.inventory = inventory if inventory is not None else ['Food', 'Water']
+        self.inventory = inventory if inventory is not None else [Item('Food'), Item('Water')]
         self.location = location
         self.magic = magic
         self.in_combat: bool = False
@@ -25,18 +26,18 @@ class Character():
         Displays the character's current inventory
         """
         if self.inventory:
-            print("Inventory:", ", ".join(self.inventory))
+            print("Inventory:", ", ".join(str(item) for item in self.inventory))
         else:
             print(f"No items in inventory.")
 
-    def add_to_inventory(self, item):
+    def add_to_inventory(self, item: Item):
         """
         Adds an item to the character's inventory
         """
         self.inventory.append(item)
-        print(f"You picked up {item}.")
+        print(f"You picked up {str(item)}.")
 
-    def remove_from_inventory(self, item):
+    def remove_from_inventory(self, item: Item):
         """
         Removes an item from the character's inventory
         """
