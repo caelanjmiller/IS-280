@@ -8,6 +8,7 @@ class Character():
         self.inventory = inventory if inventory is not None else ['Food', 'Water']
         self.location = location
         self.magic = magic
+        self.in_combat: bool = False
 
     def update_character(self, health=0, strength=0, gold=0):
         """
@@ -49,5 +50,3 @@ def create_character() -> Character:
     new_character: Character = Character(character_name)
     print(f"Character created! Name: {new_character.name}, Health: {new_character.health}, Strength: {new_character.strength}\n")
     return new_character
-
-in_combat: bool = False
