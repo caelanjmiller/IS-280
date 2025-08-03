@@ -40,72 +40,66 @@ class Item():
             "strength": 15
         },
     }
+    usage_message: dict = {
+        "Health Potion": "You used the Health Potion and gained 20 health points!",
+        "Magic Scroll": "You used the Magic Scroll and gained 10 magic points!",
+        "Food": "You ate the food.",
+        "Water": "You drank the water.",
+        "Shield": "You used the shield and your strength increased by 5!",
+        "Old Sword": "You used Old Sword and your strength increased by 10!",
+        "Enchanted Amulet": "You used the Enchanted Amulet and gained 5 health and 5 magic!",
+        "Ancient Scroll": "You used the Ancient Scroll and your level increased by 1!",
+        "Enchanted Sword": "You used the Enchanted Sword and your strength increased by 15!",
+        "Ancient Relic": "You used the Ancient Relic and revealed a hidden path!",
+        "Gold Coin": "You traded the Gold Coin!",
+    }
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self, name) -> None:
+        self.name = name
+        self.effects = self.item_effects.get(name, {})
+        self.message = self.usage_message.get(name, f"You used {name}.")
 
-    @staticmethod
-    def item_messages(item):
-        """
-        Print out proper item usage message
-        """
-        usage_message: dict = {
-            "Health Potion": "You used the Health Potion and gained 20 health points!",
-            "Magic Scroll": "You used the Magic Scroll and gained 10 magic points!",
-            "Food": "You ate the food.",
-            "Water": "You drank the water.",
-            "Shield": "You used the shield and your strength increased by 5!",
-            "Old Sword": "You used Old Sword and your strength increased by 10!",
-            "Enchanted Amulet": "You used the Enchanted Amulet and gained 5 health and 5 magic!",
-            "Ancient Scroll": "You used the Ancient Scroll and your level increased by 1!",
-            "Enchanted Sword": "You used the Enchanted Sword and your strength increased by 15!",
-            "Ancient Relic": "You used the Ancient Relic and revealed a hidden path!",
-            "Gold Coin": "You traded the Gold Coin!",
-        }
-        return usage_message.get(item, f"You used {item}.")
-
-    @staticmethod
-    def use_item(character: Character, item: str):
+    def use_item(self, character: Character):
         """
         Applies the item's effect and removes it from the inventory
         """
-        item_effects = Item.item_effects.get(item, {})
-        if item_effects:
-            character.update_character(**item_effects)
-            character.remove_from_inventory(item)
-            print(Item.item_messages(item))
+        if self in character.inventory:
+            character.update_character(**self.item_effects)
+            character.remove_from_inventory(self)
+            print(self.usage_message)
         else:
-            print(f"You don't have {item} in your inventory.")
+            print(f"You don't have {self.name} in your inventory.")
 
-    @staticmethod
-    def pick_up_item(character: Character, items_at_location: dict, item: str):
+    def pick_up_item(self, character: Character, items_at_location: dict):
         """
         Adds an item from the current location to the character's inventory
         """
         x, y = character.location
-        if item in items_at_location.get((x,y), []): 
-            character.add_to_inventory(item)
-            items_at_location[(x,y)].remove(item)
+        if self in items_at_location.get((x,y), []): 
+            character.add_to_inventory(self)
+            items_at_location[(x,y)].remove(self)
     
-    @staticmethod
-    def drop_item(character: Character, items_at_location: dict, item: str):
+    def drop_item(self, character: Character, items_at_location: dict):
         """
         Drops an item from the current inventory and places it at the current location
         """
         x, y = character.location
-        if item in character.inventory:
-            character.remove_from_inventory(item)
-            items_at_location[(x,y)].append(item)
+        if self in character.inventory:
+            character.remove_from_inventory(self)
+            items_at_location[(x,y)].append(self)
     
     @staticmethod
     def manage_items(command: str, character: Character, items_at_location: dict):
         """
         Routes item commands (pick up, drop & use) to appropriate handlers
         """
-        item: str = command[2:].strip()
+        name_of_item: str = command[2:].strip()
 
         if command.startswith('p '):
-            Item.pick_up_item(character, items_at_location, item)
+            Item(name_of_item).pick_up_item(character, items_at_location)
         
         elif command.startswith('d '):
-            Item.pick_up_item(character, items_at_location, item)
+            Item(name_of_item).pick_up_item(character, items_at_location)
+
+        elif command.startswith('u '):
+            Item(name_of_item).use_item(character)
