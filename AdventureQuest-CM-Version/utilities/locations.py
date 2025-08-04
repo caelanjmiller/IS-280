@@ -6,6 +6,10 @@ Module aims to :
 4. Inspect items present at a given location
 """
 
+from utilities.character import Character
+from utilities.items import Item
+from utilities.save_load import wrapped_text
+
 class GameMap():
     def __init__(self) -> None:
         self.game_map: dict = {
@@ -111,20 +115,92 @@ class GameMap():
             }
         }
         self.items_at_location: dict = {
-            (0, 1): ["Old Sword", "Health Potion"],
-            (0, 3): ["Magic Scroll", "Gold Coin"],
-            (0, 4): ["Gold Coin", "Ancient Relic"],
-            (1, 0): ["Old Sword", "Health Potion"],
-            (1, 1): ["Magic Scroll", "Gold Coin"],
-            (1, 3): ["Health Potion", "Gold Coin"],
-            (2, 0): ["Shield", "Health Potion"],
-            (2, 2): ["Enchanted Amulet", "Enchanted Sword", "Ancient Scroll"],
-            (2, 4): ["Ancient Relic", "Gold Coin"],
-            (3, 0): ["Gold Coin", "Ancient Relic"],
-            (3, 2): ["Enchanted Amulet", "Ancient Scroll", "Health Potion", "Gold Coin"],
-            (3, 4): ["Ancient Relic", "Gold Coin"],
-            (4, 0): ["Magic Scroll", "Gold Coin"],
-            (4, 2): ["Enchanted Amulet", "Ancient Scroll", "Health Potion", "Gold Coin"],
-            (4, 3): ["Health Potion", "Gold Coin"],
-            (4, 4): ["Ancient Relic", "Gold Coin"]
+            (0, 1): [Item("Old Sword"), Item("Health Potion")],
+            (0, 3): [Item("Magic Scroll"), Item("Gold Coin")],
+            (0, 4): [Item("Gold Coin"), Item("Ancient Relic")],
+            (1, 0): [Item("Old Sword"), "Health Potion"],
+            (1, 1): [Item("Magic Scroll"), Item("Gold Coin")],
+            (1, 3): [Item("Health Potion"), Item("Gold Coin")],
+            (2, 0): [Item("Shield"), Item("Health Potion")],
+            (2, 2): [Item("Enchanted Amulet"), "Enchanted Sword", "Ancient Scroll"],
+            (2, 4): [Item("Ancient Relic"), Item("Gold Coin")],
+            (3, 0): [Item("Gold Coin"), Item("Ancient Relic")],
+            (3, 2): [Item("Enchanted Amulet"), "Ancient Scroll", Item("Health Potion"), Item("Gold Coin")],
+            (3, 4): [Item("Ancient Relic"), Item("Gold Coin")],
+            (4, 0): [Item("Magic Scroll"), Item("Gold Coin")],
+            (4, 2): [Item("Enchanted Amulet"), "Ancient Scroll", Item("Health Potion"), Item("Gold Coin")],
+            (4, 3): [Item("Health Potion"), Item("Gold Coin")],
+            (4, 4): [Item("Ancient Relic"), Item("Gold Coin")]
         }
+    def display_map(self, character: Character):
+        """
+        Prints the game map, showing the player's current location
+        """
+        current_coordinates = character.location
+        current_location = self.game_map[current_coordinates]['name']
+        print(f"{'Location: ' + current_location + ' ' + str(current_coordinates):^80}")        
+        print("=" * 80)
+        print(f"| Name: {character.name:<15} Health: {character.health:<15} Strength: {character.strength:<25}|")
+        print(f"| Level: {character.level:<14} Gold: {character.gold:<17} Magic: {character.magic:<24} |")
+        print("=" * 80)
+        print(f"{'Adventure Quest - Game Map':^80}")
+        print("=" * 80)
+        print("| Coordinates | Location Name        |")
+        print("|-------------|----------------------|")
+        for coord, location in self.game_map.items():
+            coordinates_str = f"({coord[0]}, {coord[1]})"
+            print(f"| {coordinates_str:<11} | {location:<20} |")
+        print("=" * 80)
+
+    def move_character(self, direction: str, character: Character):
+        """
+        Updates the character's location based upon a movement command (n, s, e, w)
+        Ensures valid movement within bounds
+        """
+        x,y = character.location
+        if direction == 'n': 
+            if x > 0:
+                x -= 1
+            else:
+                print("You cannot move further north.")
+                
+        elif direction == 'e':
+            if y < 4:
+                y += 1
+            else:
+                print("You cannot move further east.")
+                
+        elif direction == 's':
+            if x < 4:
+                x += 1
+            else:
+                print("You cannot move further south.")
+                
+        elif direction == 'w':
+            if y > 0:
+                y -= 1
+            else:
+                print("You cannot move further west.")       
+
+        character.location = (x,y)
+
+    def inspect_location(self, character: Character, items_at_location: dict):
+        """
+        List items available at the character's current location
+        """
+        items_at_current_location = items_at_location.get(character.location, [])
+        if not items_at_current_location:
+            wrapped_text(f"There are no items at this location.")
+        else:
+            wrapped_text(f"You look around and find the following items:")
+            for item in items_at_current_location:
+                wrapped_text(f"- {item}")
+
+    def is_uncharted(self, location: tuple):
+        """
+        Check if a location is "Uncharted Territory"
+        """
+        location_data = self.game_map.get(location)
+        if location_data is None:
+            return False
+        return location_data.get("name") == "Uncharted Territory"
