@@ -1,8 +1,9 @@
 from save_load import wrapped_text, wrapped_text_prompt
 from items import Item
+from quests import Quest
 
 class Character():
-    def __init__(self, name, health=100, strength=10, level=1, gold=0, inventory=None, location=(0,0), magic=0) -> None:
+    def __init__(self, name, health=100, strength=10, level=1, gold=0, inventory=None, location=(0,0), magic=0, quests=None) -> None:
         self.name = name
         self.health = health
         self.strength = strength
@@ -12,14 +13,17 @@ class Character():
         self.location = location
         self.magic = magic
         self.in_combat: bool = False
+        self.quests = quests
 
-    def update_character(self, health=0, strength=0, gold=0):
+    def update_character(self, health=0, strength=0, gold=0, magic=0, level=0):
         """
         Updates character stats based upon provided in game changes
         """
         self.health += health
         self.strength += strength
         self.gold += gold
+        self.magic += magic
+        self.level += level
 
     def view_inventory(self):
         """

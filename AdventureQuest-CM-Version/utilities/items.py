@@ -10,36 +10,6 @@ from character import Character
 
 class Item():
 
-    item_effects: dict = {
-        "Health Potion": {
-            "health": 20
-        },
-        "Magic Scroll": {
-            "magic": 10
-        },
-        "Food": {
-            "health": 2
-        },
-        "Water": {
-            "health": 2
-        },
-        "Shield": {
-            "strength": 5
-        },
-        "Old Sword": {
-            "strength": 10
-        },
-        "Enchanted Amulet": {
-            "health": 5,
-            "magic": 5
-        },
-        "Ancient Scroll": {
-            "level": 1
-        },
-        "Enchanted Sword": {
-            "strength": 15
-        },
-    }
     usage_message: dict = {
         "Health Potion": "You used the Health Potion and gained 20 health points!",
         "Magic Scroll": "You used the Magic Scroll and gained 10 magic points!",
@@ -54,10 +24,12 @@ class Item():
         "Gold Coin": "You traded the Gold Coin!",
     }
 
-    def __init__(self, name) -> None:
+    def __init__(self, name, health=0, magic=0, strength=0, level=0) -> None:
         self.name = name
-        self.effects = self.item_effects.get(name, {})
-        self.message = self.usage_message.get(name, f"You used {name}.")
+        self.health = health
+        self.magic = magic
+        self.strength = strength
+        self.level = level
 
     def __str__(self) -> str:
         return self.name
@@ -67,9 +39,14 @@ class Item():
         Applies the item's effect and removes it from the inventory
         """
         if self in character.inventory:
-            character.update_character(**self.item_effects)
+            character.update_character(
+                health=self.health,
+                strength=self.strength,
+                magic=self.magic,
+                level=self.level
+            )
             character.remove_from_inventory(self)
-            print(self.usage_message)
+            print(self.usage_message.get(self.name, f"You used {self.name}."))
         else:
             print(f"You don't have {self.name} in your inventory.")
 
@@ -106,3 +83,15 @@ class Item():
 
         elif command.startswith('u '):
             Item(name_of_item).use_item(character)
+
+item_registry: dict =  {
+    "Health Potion": Item("Health Potion", health=20),
+    "Magic Scroll": Item("Magic Scroll", magic=10),
+    "Food": Item("Food", health=2),
+    "Water": Item("Water", health=2),
+    "Shield": Item("Shield", strength=5),
+    "Old Sword": Item("Old Sword", strength=10),
+    "Enchanted Amulet": Item("Enchanted Amulet", health=5, magic=5),
+    "Ancient Scroll": Item("Ancient Scroll", level=1),
+    "Enchanted Sword": Item("Enchanted Sword", strength=15)
+}
