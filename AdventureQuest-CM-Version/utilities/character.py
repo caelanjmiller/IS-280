@@ -1,6 +1,6 @@
-from save_load import wrapped_text, wrapped_text_prompt
-from items import Item
-from quests import Quest
+from utilities.save_load import wrapped_text, wrapped_text_prompt
+from utilities.items import Item
+from utilities.quests import Quest
 
 class Character():
     def __init__(self, name, health=100, strength=10, level=1, gold=0, inventory=None, location=(0,0), magic=0, quests=None) -> None:
